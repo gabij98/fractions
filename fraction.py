@@ -14,19 +14,48 @@ from math import gcd
 
 
 class Fraction(object):
-    """
-    Fraction class.
-    """
+
+    nom = None
+    denom = None
 
     def __init__(self, nom, denom):
         self.nom = nom
         self.denom = denom
 
-    def __str__(self):
-        return f"{self.nom}/{self.denom}"
+        if self.denom == 0:
+            raise ValueError("The denominator cannot be 0")
 
-    def __repr__(self):
-        return f"Fraction({self.nom}, {self.denom})"
+        gc_divisor = gcd(self.nom, self.denom)
+        self.nom = int(nom / gc_divisor)
+        self.denom = int(denom / gc_divisor)
+
+        if self.denom < 0:
+            self.nom = -1 * self.nom
+            self.denom = -1 * self.denom
+
+    def __str__(self):
+        return "{0.nom}/{0.denom}".format(self)
+
+    def __mul__(self, number):
+        return Fraction(self.nom*number.nom, self.denom*number.denom)
+
+    def __truediv__(self, number):
+        return Fraction(self.nom*number.denom, self.denom*number.nom)
+
+    def __add__(self, number):
+        nom1 = self.nom*number.denom
+        nom2 = number.nom*self.denom
+        return Fraction(nom1 + nom2, self.denom*number.denom)
+
+    def __sub__(self, number):
+        nom1 = self.nom*number.denom
+        nom2 = number.nom*self.denom
+        return Fraction(nom1 - nom2, self.denom*number.denom)
 
     def __eq__(self, other):
         return self.nom == other.nom and self.denom == other.denom
+
+    def value(self):
+        return self.nom / self.denom
+
+
