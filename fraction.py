@@ -1,7 +1,7 @@
 """
 This file contains definition of a fraction class.
 
-You should put complete class here. It must be named `Fragion` and must have the following properties:
+You should put complete class here. It must be named `Fraction` and must have the following properties:
 
 - four basic mathematical operators defined;
 - elegant conversion to string in the form '3/2';
@@ -11,7 +11,6 @@ You should put complete class here. It must be named `Fragion` and must have the
 - method `value` returning float value of the fraction.
 """
 from math import gcd
-
 
 class Fraction(object):
 

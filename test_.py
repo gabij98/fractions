@@ -2,7 +2,6 @@ from unittest import TestCase
 
 from fraction import Fraction
 
-
 class TestFraction(TestCase):
 
     def test_str(self):
