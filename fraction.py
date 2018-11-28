@@ -21,39 +21,41 @@ class Fraction(object):
         self._nom = nom
         self._denom = denom
 
-
         if self._denom == 0:
             raise ValueError("The denominator cannot be 0")
-
-        gc_divisor = gcd(self._nom, self._denom)
-        self._nom = int(nom / gc_divisor)
-        self._denom = int(denom / gc_divisor)
 
         if self._denom < 0:
             self._nom = -1 * self._nom
             self._denom = -1 * self._denom
 
+    def simplify(self):
+        gc_divisor = gcd(self._nom, self._denom)
+        self._nom = int(nom / gc_divisor)
+        self._denom = int(denom / gc_divisor)
+        return Fraction(self._nom, self._denom)
+
+
     def __str__(self):
         return "{0._nom}/{0._denom}".format(self)
 
     def __mul__(self, number):
-        return Fraction(self._nom*number.nom, self._denom*number.denom)
+        return Fraction(self._nom*number._nom, self._denom*number._denom)
 
     def __truediv__(self, number):
-        return Fraction(self._nom*number.denom, self._denom*number.nom)
+        return Fraction(self._nom*number._denom, self._denom*number._nom)
 
     def __add__(self, number):
-        nom1 = self._nom*number.denom
-        nom2 = number.nom*self._denom
-        return Fraction(nom1 + nom2, self._denom*number.denom)
+        nom1 = self._nom*number._denom
+        nom2 = number._nom*self._denom
+        return Fraction(nom1 + nom2, self._denom*number._denom)
 
     def __sub__(self, number):
-        nom1 = self._nom*number.denom
-        nom2 = number.nom*self._denom
-        return Fraction(nom1 - nom2, self._denom*number.denom)
+        nom1 = self._nom*number._denom
+        nom2 = number._nom*self._denom
+        return Fraction(nom1 - nom2, self._denom*number._denom)
 
     def __eq__(self, other):
-        return self._nom == other.nom and self._denom == other.denom
+        return self._nom == other._nom and self._denom == other._denom
 
     def value(self):
         return self._nom / self._denom
@@ -67,3 +69,11 @@ class Fraction(object):
         if val == 0:
             raise ValueError("The denominator cannot be 0")
         self._denom = val
+
+    @property
+    def nom(self):
+        return self._nom
+
+    @nom.setter
+    def nom(self, val):
+        self._nom = val
